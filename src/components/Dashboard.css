@@ -1,0 +1,79 @@
+.App {
+    display: flex;
+    height: 100vh;
+  }
+  
+  .dashboard {
+    width: 180px; /* Reduced width */
+    height: 95vh; /* Increased height for a longer appearance */
+    background-color: #0c597a; /* Darker background for the sidebar */
+    color: #ecf0f1; /* Light text color */
+    padding: 20px;
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  .dashboard ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .dashboard li {
+    cursor: pointer;
+    margin-bottom: 15px; /* Increased spacing between items */
+    transition: background-color 0.3s ease; /* Smooth hover effect */
+  }
+  
+  .dashboard li:hover {
+    background-color: #34495e; /* Highlight color on hover */
+    padding-left: 10px; /* Indentation effect on hover */
+    border-radius: 5px; /* Rounded corners for the hover effect */
+  }
+  
+  .dashboard a,
+  .dashboard button {
+    color: #ecf0f1; /* Consistent text color for links and button */
+    text-decoration: none; /* Remove underline from links */
+    font-weight: bold; /* Bold text */
+    display: block;
+    padding: 10px 15px; /* Padding for clickable area */
+    border-radius: 5px; /* Rounded corners */
+    background-color: transparent; /* Transparent background by default */
+    border: none; /* Remove border from button */
+    width: 100%; /* Full width */
+    text-align: left; /* Align text to the left */
+    cursor: pointer; /* Pointer cursor for button */
+  }
+  
+  .dashboard a.active,
+  .dashboard button:hover {
+    background-color: #2980b9; /* Active link and hover background */
+  }
+  
+  .dashboard button:focus {
+    outline: none; /* Remove outline on focus */
+  }
+  
+  .content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #ecf0f1; /* Light background for content area */
+    border-radius: 10px; /* Rounded corners for content area */
+    margin-left: 20px; /* Space between dashboard and content */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  }
+  
+  @media (max-width: 768px) {
+    .dashboard {
+      width: 100%;
+      height: auto;
+      border-radius: 0; /* Remove rounded corners on small screens */
+      box-shadow: none; /* Remove shadow on small screens */
+    }
+  
+    .content {
+      margin-left: 0;
+      margin-top: 20px;
+    }
+  }
+  

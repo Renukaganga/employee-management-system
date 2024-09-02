@@ -1,0 +1,55 @@
+/* TaskHistory.css */
+
+.task-history-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.dashboard-container {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.tasks-list-container {
+    flex: 1;
+    padding: 40px;
+    background-color: #fff;
+}
+
+.tasks-list-container h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+}
+
+.tasks-list-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.tasks-list-container li {
+    background-color: #fafafa;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tasks-list-container h3 {
+    margin-top: 0;
+    font-size: 22px;
+    color: #333;
+}
+
+.tasks-list-container p {
+    font-size: 16px;
+    color: #666;
+}
+
+.tasks-list-container p:last-child {
+    margin-bottom: 0;
+}

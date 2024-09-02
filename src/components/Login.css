@@ -1,0 +1,52 @@
+.login-wrapper {
+    display: flex;
+    height: 100vh;
+}
+
+.login-image {
+    flex: 1;
+    background-image: url('https://projectsly.com/images/blog/employee-task-management-system.png?v=1686553999071005322');
+    background-size: cover;
+    background-position: center;
+}
+
+.login-form-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #f0f0f0;
+    padding: 40px;
+}
+
+.login-form-container h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+}
+
+.login-input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 10px;
+    background-color: #2980b9;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.login-button:hover {
+    background-color: #1c5d85;
+}

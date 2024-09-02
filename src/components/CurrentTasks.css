@@ -1,0 +1,72 @@
+/* CurrentTasks.css */
+.current-tasks-container {
+    display: flex;
+    height: 100vh;
+    background-color: #f9f9f9;
+}
+
+.dashboard-container {
+    width: 250px;
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+}
+
+.tasks-list-container {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+
+.tasks-list-container h2 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #333;
+    text-align: center;
+}
+
+.tasks-list-container ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.task-item {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.task-item:hover {
+    transform: translateY(-5px);
+}
+
+.task-item h3 {
+    margin-bottom: 10px;
+    font-size: 24px;
+    color: #2980b9;
+}
+
+.task-item p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #666;
+}
+/* CurrentTasks.css */
+
+.task-item select {
+    padding: 8px;
+    margin-top: 10px;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f0f0f0;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    width: 100%;
+}
+
+.task-item select:hover {
+    background-color: #e0e0e0;
+}
