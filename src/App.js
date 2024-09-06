@@ -10,7 +10,10 @@ import CurrentTasks from './components/CurrentTasks';
 import TaskHistory from './components/TaskHistory';
 import Logout from './components/Logout';
 import './components/Dashboard.css'
+import CurrentTask from './components/employee/CurrentTask'
+import HisEmp from './components/employee/HisEmp'
 import { UserProvider } from './components/UserContext'; 
+import Eprofile from './components/employee/Eprofile';
 
 function App() {
     return (
@@ -22,6 +25,7 @@ function App() {
                 <Route path="/add-task" element={<AddTask />} />
                 <Route path="/tasks" element={<Tasks />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/eprofile" element={<Eprofile />} />
                 <Route path="/signup" element={<Signup />} />
                 <Route path="/" element={<Login />} />
                 <Route path="/add-task" element={<AddTask />} />
@@ -29,6 +33,8 @@ function App() {
                 <Route path="/task-history" element={<TaskHistory />} />
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/current-emp" element={<CurrentTask />} />
+                <Route path="/his-emp" element={<HisEmp />} />
             </Routes>
         </Router>
         </UserProvider>

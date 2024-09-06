@@ -16,22 +16,28 @@ function Login() {
             const res = await axios.post('http://localhost:5000/api/auth/login', { email, password });
             localStorage.setItem('token', res.data.token);
 
-            
             const userResponse = await axios.get('http://localhost:5000/api/auth/profile', {
                 headers: {
                     Authorization: `Bearer ${res.data.token}`,
                 },
             });
 
+            // Extract role from user data
+            const { role } = userResponse.data;
+
             // Update user details in context
             updateUser(userResponse.data);
 
-            // Navigate to profile page
-            navigate('/profile');
+            // Navigate to appropriate dashboard based on role
+            if (role === 'Manager') {
+                navigate('/profile');
+            } else {
+                navigate('/eprofile');
+            }
         } catch (error) {
             console.error('Login error:', error);
             setError('Email or password is incorrect.'); // Set error message
-            alert('Invalid password or Email')
+            alert('Invalid password or Email');
         }
     };
 
