@@ -7,7 +7,7 @@ const CurrentTask = () => {
             <div>
                 <Edashboard />
             </div>
-            hi
+         Current tasks
         </div>
     );
 };
