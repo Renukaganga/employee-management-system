@@ -8,7 +8,7 @@ function AddTask() {
     const [description, setDescription] = useState('');
     const [assignedTo, setAssignedTo] = useState('');
     const [dueDate, setDueDate] = useState('');
-    const [error, setError] = useState('');
+  const [error, setError] = useState('');
 
     const handleAddTask = async () => {
         try {

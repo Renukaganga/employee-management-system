@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import '../Profile.css';
 import Edashboard from './Edashboard';
+import { useUserContext } from '../UserContext';
 
 function Eprofile() {
     const [profile, setProfile] = useState({
@@ -13,6 +14,7 @@ function Eprofile() {
         phoneNumber: ''
     });
 
+    const {updateUser}=useUserContext();
     useEffect(() => {
         // Fetch profile data from the backend
         const fetchProfile = async () => {
@@ -24,13 +26,16 @@ function Eprofile() {
                     },
                 });
                 setProfile(response.data);
+                updateUser(response.data)
+                
+                
             } catch (error) {
                 console.error('Error fetching profile:', error);
             }
         };
 
         fetchProfile();
-    }, []);
+    }, [updateUser]);
 
     const handleUpdate = () => {
         // Logic to update profile
@@ -53,6 +58,9 @@ function Eprofile() {
                 <button className="update-button" onClick={handleUpdate}>
                     Update Profile
                 </button>
+               
+                   
+               
             </div>
         </div>
     );
