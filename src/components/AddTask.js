@@ -20,6 +20,7 @@ function AddTask() {
             });
 
             console.log('Response:', response);
+        
             alert('Task Added Successfully'); // Set error message
             setError('Task Added Successfully')
             setTitle('');

@@ -1,15 +1,12 @@
 import React, { createContext, useContext, useState } from 'react';
 
-// Create the context
 const UserContext = createContext();
 
-// Create a provider component
 export const UserProvider = ({ children }) => {
-    const [userData, setUserData] = useState({}); // State for user data
+    const [userData, setUserData] = useState(null); // Initialize as null or empty object
 
-    // Function to update user data
-    const updateUser = (newUserData) => {
-        setUserData(newUserData);
+    const updateUser = (data) => {
+        setUserData(data);
     };
 
     return (
@@ -19,7 +16,4 @@ export const UserProvider = ({ children }) => {
     );
 };
 
-// Custom hook to use the UserContext
-export const useUserContext = () => {
-    return useContext(UserContext);
-};
+export const useUserContext = () => useContext(UserContext);

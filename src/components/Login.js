@@ -7,7 +7,7 @@ import './Login.css';
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(''); // State for error message
+    const [error, setError] = useState('');
     const navigate = useNavigate();
     const { updateUser } = useUserContext(); // Access updateUser function from context
 
@@ -25,8 +25,8 @@ function Login() {
             // Extract role from user data
             const { role } = userResponse.data;
 
-            // Update user details in context
-            updateUser(userResponse.data);
+            // Update user details in context (including id)
+            updateUser(userResponse.data); // Ensure id is included in user data
 
             // Navigate to appropriate dashboard based on role
             if (role === 'Manager') {
@@ -36,7 +36,7 @@ function Login() {
             }
         } catch (error) {
             console.error('Login error:', error);
-            setError('Email or password is incorrect.'); // Set error message
+            setError('Email or password is incorrect.');
             alert('Invalid password or Email');
         }
     };

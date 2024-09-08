@@ -14,7 +14,7 @@ function Signup({ history }) {
 
     const handleSignup = async () => {
         try {
-            await axios.post('http://localhost:5000/api/auth/signup', { 
+            const response = await axios.post('http://localhost:5000/api/auth/signup', { 
                 name, 
                 role, 
                 address, 
@@ -23,11 +23,20 @@ function Signup({ history }) {
                 email, 
                 employeeId 
             });
-            history.push('/login');
+    
+            console.log('Signup response:', response.data); // Log the response
+    
+            if (response.status === 201 || response.status === 200) {
+                alert('Employee Added Successfully');
+            } else {
+                alert('Signup failed');
+            }
         } catch (error) {
-            console.error('Signup error:', error);
+            console.error('Signup error:', error.response ? error.response.data : error.message);
+            alert('Error adding employee');
         }
     };
+    
 
     return (
         <div className="signup-container">
