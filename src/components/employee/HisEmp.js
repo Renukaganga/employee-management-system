@@ -7,7 +7,7 @@ const HisEmp = () => {
             <div>
                 <Edashboard />
             </div>
-            hi
+            Employee task history
         </div>
     );
 };
