@@ -16,36 +16,41 @@ function CurrentTask() {
             const response = await axios.get('http://localhost:5000/api/tasks/current');
             setTasks(response.data);
             setError(''); // Clear any errors
-            console.log(userData)
+            console.log(userData);
 
             // Filter tasks assigned to the logged-in user
-           
-                const userTasks = response.data.filter(task => task.assignedTo === userData.employeeId);
-                setFilteredTasks(userTasks);
-          
+            const userTasks = response.data.filter(task => task.assignedTo === userData.employeeId);
+            setFilteredTasks(userTasks);
         } catch (error) {
             console.error('Error fetching tasks:', error);
             setError('Failed to load tasks');
         }
-    }, []); // Re-run when userData.id changes
+    }, [userData.employeeId]); // Re-run when userData.employeeId changes
 
     // Call fetchTasks when the component is mounted or userData changes
     useEffect(() => {
-       
+        if (userData && userData.employeeId) {
             fetchTasks();
-        
+        }
     }, [userData, fetchTasks]); // Add fetchTasks to dependencies
 
     const handleStatusChange = async (taskId, status) => {
         try {
+            // Call backend to update the task status
             await axios.put(`http://localhost:5000/api/tasks/${taskId}/status`, { status });
+            
             // Update tasks and filtered tasks after the status change
-            setTasks(tasks.map(task => 
+            const updatedTasks = tasks.map(task =>
                 task._id === taskId ? { ...task, status } : task
-            ));
-            setFilteredTasks(filteredTasks.map(task => 
+            );
+            setTasks(updatedTasks);
+
+            const updatedFilteredTasks = filteredTasks.map(task =>
                 task._id === taskId ? { ...task, status } : task
-            ));
+            );
+            setFilteredTasks(updatedFilteredTasks);
+
+            setError(''); // Clear any errors
         } catch (error) {
             console.error('Error updating task status:', error);
             setError('Failed to update task status');
@@ -72,8 +77,9 @@ function CurrentTask() {
                                 value={task.status} 
                                 onChange={(e) => handleStatusChange(task._id, e.target.value)}
                             >
-                                <option value="In Progress">In Progress</option>
-                                <option value="Completed">Completed</option>
+                                <option value="pending">Pending</option>
+                                <option value="in progress">In Progress</option>
+                                <option value="completed">Completed</option>
                             </select>
                             <p>Status: {task.status}</p>
                         </li>

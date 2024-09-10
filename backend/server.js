@@ -64,6 +64,7 @@ app.post('/api/auth/login', async (req, res) => {
     res.status(500).json({ message: 'Login failed' });
   }
 });
+
 // Middleware to authenticate the user using JWT
 const authenticateJWT = (req, res, next) => {
   const token = req.headers.authorization?.split(' ')[1];
@@ -94,53 +95,85 @@ app.get('/api/auth/profile', authenticateJWT, async (req, res) => {
   }
 });
 
-
-
+// Task Schema
 const taskSchema = new mongoose.Schema({
   title: String,
   description: String,
   assignedTo: String,
-  dueDate: Date
+  dueDate: Date,
+  status: { type: String, enum: ['pending', 'in progress', 'completed'], default: 'pending' },
 });
 
 const Task = mongoose.model('Task', taskSchema);
-
-app.use(cors());
-
 
 // Route to add a task
 app.post('/api/tasks/add', async (req, res) => {
   const { title, description, assignedTo, dueDate } = req.body;
   if (!title || !description || !assignedTo || !dueDate) {
-      return res.status(400).json({ message: 'All fields are required' });
+    return res.status(400).json({ message: 'All fields are required' });
   }
 
   try {
-      const newTask = new Task({
-          title,
-          description,
-          assignedTo,
-          dueDate
-      });
-      await newTask.save();
-      res.status(201).json(newTask);
+    const newTask = new Task({
+      title,
+      description,
+      assignedTo,
+      dueDate,
+       status: 'In Progress',
+    });
+    await newTask.save();
+    res.status(201).json(newTask);
   } catch (error) {
-      console.error('Error saving task:', error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    console.error('Error saving task:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
 // Route to get current tasks
 app.get('/api/tasks/current', async (req, res) => {
   try {
-      const tasks = await Task.find(); // Fetch all tasks from the database
-      res.status(200).json(tasks);
+    const tasks = await Task.find(); // Fetch all tasks from the database
+    res.status(200).json(tasks);
   } catch (error) {
-      console.error('Error fetching tasks:', error);
-      res.status(500).json({ message: 'Internal Server Error' });
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
   }
 });
 
+// Route to update task status
+app.put('/api/tasks/:taskId/status', async (req, res) => {
+  const { taskId } = req.params;
+  const { status } = req.body;
 
+  if (!['pending', 'in progress', 'completed'].includes(status)) {
+    return res.status(400).json({ message: 'Invalid status value' });
+  }
 
+  try {
+    const task = await Task.findById(taskId);
+    if (!task) {
+      return res.status(404).json({ message: 'Task not found' });
+    }
+
+    task.status = status;
+    await task.save();
+
+    res.status(200).json({ message: 'Task status updated successfully', task });
+  } catch (error) {
+    console.error('Error updating task status:', error);
+    res.status(500).json({ message: 'Internal Server Error' });
+  }
+});
+// Backend route to fetch completed tasks for a specific employee
+app.get('/api/tasks/completed/:employeeId', async (req, res) => {
+  const { employeeId } = req.params;
+  try {
+      const tasks = await Task.find({ assignedTo: employeeId, status: 'completed' });
+      res.json(tasks);
+  } catch (error) {
+      res.status(500).json({ error: 'Failed to fetch completed tasks' });
+  }
+});
+
+// Start the server
 app.listen(5000, () => console.log('Server running on port 5000'));
