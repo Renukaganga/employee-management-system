@@ -175,5 +175,34 @@ app.get('/api/tasks/completed/:employeeId', async (req, res) => {
   }
 });
 
+// Route to update user profile (except employeeId and role)
+app.post('/api/auth/updateUser', authenticateJWT, async (req, res) => {
+  const { name, email, address, phoneNumber } = req.body; // Extract fields from the request body
+
+  try {
+    // Find the employee by their ID (retrieved from the decoded JWT token)
+    const employee = await Employee.findById(req.user.id);
+
+    if (!employee) {
+      return res.status(404).json({ message: 'Employee not found' });
+    }
+
+    // Update only the allowed fields (name, email, address, phoneNumber)
+    employee.name = name || employee.name;
+    employee.email = email || employee.email;
+    employee.address = address || employee.address;
+    employee.phoneNumber = phoneNumber || employee.phoneNumber;
+
+    // Save the updated employee data
+    await employee.save();
+
+    res.status(200).json({ message: 'Profile updated successfully', employee });
+  } catch (error) {
+    console.error('Error updating profile:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+});
+
+
 // Start the server
 app.listen(5000, () => console.log('Server running on port 5000'));
